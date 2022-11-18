@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org">
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>2016 굿모닝 경기 소통 크리에이터 공모전</title>
+    <link rel="stylesheet" type="text/css" href="../css/general.css" >
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.scrollTo-min.js"></script>
+    <script src="../js/layout.js"></script>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="wrap">
+    <!-- @ CONTAINER -->
+    <section id="container" class="sub">
+        <!-- @ CONTENTS -->
+        <div id="contents">
+            <!-- @ SUB TITLE AREA -->
+            <div class="sub-title-area">
+                <h2 class="tit">News & Info </h2>
+            </div>
+            <div class="write_title">
+                [[${halo.title}]]
+            </div>
+            <div class="write_date">
+                <span class="write_line"><strong>작성자  :</strong> [[${halo.name}]] </span>
+                <span class="write_line"><strong>조회수  :</strong> [[${halo.read}]] </span>
+                <span class="write_line">2015.11.11:10:10</span>
+                <span><em class="file_icon"></em><a href="#"> 123.hwp</a></span>
+
+            </div>
+            <div class="con_box">
+                <textarea readonly="readonly"
+                          class="form-control"
+                          th:text="${halo.content}">
+
+                </textarea>
+            </div>
+
+            <div class="btn_area">
+                <form class="btn_blue" th:action="@{main}" method="get">
+                    <button type="submit">목록</button>
+                </form>
+                <form  th:action="@{update}" method="get">
+                    <input type="hidden" name="boardId" th:value="${halo.boardId}">
+                    <button type="button" type="submit">수정</button>
+                </form>
+
+                <form  th:action="@{delete}" method="get">
+                    <input type="hidden" name="boardId" th:value="${halo.boardId}">
+                    <button type="button" type="submit">삭제</button>
+                </form>
+            </div>
+        </div>
+        <!-- CONTENTS @ -->
+    </section>
+    <!-- CONTAINER @ -->
+</div>
+</body>
+</html>
