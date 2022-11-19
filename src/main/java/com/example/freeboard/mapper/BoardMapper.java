@@ -17,7 +17,7 @@ public interface BoardMapper {
 
     void uploadBoard(Board board);
 
-    Object updateBoard(Board board);
+    void updateBoard(Board board);
 
     void deleteBoard(Long boardId);
 

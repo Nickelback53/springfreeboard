@@ -32,7 +32,7 @@
       <div class="write_date">
         <span class="write_line"><strong>작성자  :</strong> [[${halo.name}]] </span>
         <span class="write_line"><strong>조회수  :</strong> [[${halo.read}]] </span>
-        <span class="write_line">2015.11.11:10:10</span>
+        <span class="write_line">[[${halo.regdate}]]</span>
         <span><em class="file_icon"></em><a href="#"> 123.hwp</a></span>
 
       </div>
@@ -41,22 +41,22 @@
       </div>
 
       <div class="btn_area2">
-        <button class="btn_blue" >
-        <a href="javascript: void(0);" onclick="goListPage();" style="color: white">
-          뒤로가기</a>
+        <button class="btn_blue" style="cursor: pointer;" >
+        <a href="javascript: void(0);" onclick="goListPage();" style="color: white;">
+          목록</a>
 
         </button>
-        <form  th:action="@{main}" method="get">
-          <button class="btn_blue" type="submit">목록</button>
-        </form>
+<!--        <form  th:action="@{main}" method="get">-->
+<!--          <button class="btn_blue" type="submit">목록</button>-->
+<!--        </form>-->
         <form  th:action="@{update}" method="get" onclick="goWritePage();">
           <input type="hidden" name="boardId" th:value="${halo.boardId}">
-          <button class="btn_blue" type="submit">수정</button>
+          <button class="btn_blue" type="submit" style="cursor: pointer;">수정</button>
         </form>
 
         <form  th:action="@{delete}" method="get">
           <input type="hidden" name="boardId" th:value="${halo.boardId}">
-          <button class="btn_blue" type="submit">삭제</button>
+          <button class="btn_blue" type="submit" style="cursor: pointer;">삭제</button>
         </form>
       </div>
     </div>

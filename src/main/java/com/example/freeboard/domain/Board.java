@@ -17,7 +17,7 @@ public class Board {
     private String title;
     private String content;
     private String name;
-    private LocalDateTime createDate;
+    private LocalDateTime regdate;
     private int read;
     private Long memberId;
 }

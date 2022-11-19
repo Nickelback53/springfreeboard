@@ -47,9 +47,9 @@ public class BoardService {
     }
 
     @Transactional
-    public Object updateBoard(Board board) {
-        //boardMapper.updateBoard(board);
-        return boardMapper.updateBoard(board);
+    public void updateBoard(Board board) {
+        boardMapper.updateBoard(board);
+        //return boardMapper.updateBoard(board);
     }
 
 

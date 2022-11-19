@@ -5,8 +5,55 @@
   <title>테스트 페이지</title>
 </head>
 <body>
-<h1>테스트페이지!</h1>
-<h1>[[${cnt}]]</h1> // cnt : 게시글 수
-<h1>[[${test[0].title}]]</h1> // test : 게시글 리스트, test[0].title : 첫번째 게시글 제목
+<div id="wrap">
+  <!-- @ CONTAINER -->
+  <section id="container" class="sub">
+    <!-- @ CONTENTS -->
+    <div id="contents">
+      <div class="sub-title-area">
+        <h2 class="tit">News & Info </h2>
+      </div>
+      <form th:action="@{update}" method="post">
+        <table class="basic_write">
+          <caption>News 입력</caption>
+          <colgroup>
+            <col style="width:150px">
+            <col style="width:auto">
+          </colgroup>
+          <tr>
+            <th>제목<span class="star">*</span></th>
+            <td><input type="text" title="title" name="title" id="title" class="add_txt"  placeholder="title" th:value="${update.title}"></td>
+          </tr>
+          <tr>
+            <th>작성자<span class="star">*</span></th>
+            <td><input type="text" title="name" name="name" id="name" class="name_txt" placeholder="name" th:value="${update.name}"></td>
+          </tr>
+
+          <tr>
+            <th>첨부파일</th>
+            <td>
+              <input type="file" title="file" name="" id="file" placeholder="학과/부서" class="name_txt">
+            </td>
+          </tr>
+          <tr>
+            <th>내용 <span class="star">*</span></th>
+            <td>
+              <textarea name="content" id="" cols="30" rows="10" style="width:100%">[[${update.content}]]</textarea>
+            </td>
+          </tr>
+          <input type="hidden" name="boardId" th:value="${update.boardId}">
+
+        </table>
+        <div class="btn_area">
+          <button type="submit" class="btn_blue">확인</button>
+          <a href="main" class="btn_blue_line">취소</a>
+        </div>
+      </form>
+    </div>
+    <!-- CONTENTS @ -->
+  </section>
+
+
+</div>
 </body>
 </html>

@@ -35,7 +35,7 @@
 
     <update id="updateBoard" parameterType="com.example.freeboard.domain.Board">
         UPDATE tbl_board
-        SET title=#{title}, content=#{content}
+        SET title=#{title}, content=#{content}, name=#{name}
         WHERE boardId=#{boardId};
     </update>
 
