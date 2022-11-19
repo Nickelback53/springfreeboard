@@ -1,6 +1,7 @@
 package com.example.freeboard.Controller;
 
 import com.example.freeboard.domain.Board;
+import com.example.freeboard.domain.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,16 +29,17 @@ public class BoardController {
 
 
     @GetMapping("/test")
-    public String test(Model model) {
+    public String test(Model model, Pagination pagination) {
         model.addAttribute("cnt", service.boardCount());
-        model.addAttribute("test", service.boardList());
+        model.addAttribute("test", service.boardList(pagination));
 
         return "/boards/hello";
     }
 
     @GetMapping("/main")
-    public String main(Model model) {
-        model.addAttribute("list", service.boardList());
+    public String main(Model model, Pagination pagination) {
+        model.addAttribute("cnt", service.boardCount());
+        model.addAttribute("list", service.boardList(pagination));
 
         return "/boards/main";
     }
@@ -80,6 +82,12 @@ public class BoardController {
     public String deleteBoard(Long boardId) {
         service.deleteBoard(boardId);
         return "redirect:/board/main";
+    }
+
+    @GetMapping("/pageChange")
+    public String changePage(Long curPage) {
+        service.changePage(curPage);
+        return "/board/main";
     }
 
 
