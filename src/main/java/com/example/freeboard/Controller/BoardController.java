@@ -2,11 +2,13 @@ package com.example.freeboard.Controller;
 
 import com.example.freeboard.domain.Board;
 import com.example.freeboard.domain.Pagination;
+import com.example.freeboard.domain.PagingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.freeboard.service.BoardService;
@@ -30,16 +32,17 @@ public class BoardController {
 
     @GetMapping("/test")
     public String test(Model model, Pagination pagination) {
-        model.addAttribute("cnt", service.boardCount());
+        model.addAttribute("cnt", service.boardCount(pagination));
         model.addAttribute("test", service.boardList(pagination));
 
         return "/boards/hello";
     }
 
     @GetMapping("/main")
-    public String main(Model model, Pagination pagination) {
-        model.addAttribute("cnt", service.boardCount());
-        model.addAttribute("list", service.boardList(pagination));
+    public String main(@ModelAttribute("pagination") Pagination pagination, Model model) {
+        PagingResponse<Board> response = service.boardList(pagination);
+//        model.addAttribute("cnt", service.boardCount(pagination));
+        model.addAttribute("list", response);
 
         return "/boards/main";
     }
@@ -84,11 +87,11 @@ public class BoardController {
         return "redirect:/board/main";
     }
 
-    @GetMapping("/pageChange")
-    public String changePage(Long curPage) {
-        service.changePage(curPage);
-        return "/board/main";
-    }
+//    @GetMapping("/pageChange")
+//    public String changePage(Long curPage) {
+//        service.changePage(curPage);
+//        return "/board/main";
+//    }
 
 
 }

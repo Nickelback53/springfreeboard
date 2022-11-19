@@ -4,14 +4,20 @@
 <mapper namespace="com.example.freeboard.mapper.BoardMapper">
 
 
-    <select id="boardCount" resultType="com.example.freeboard.domain.Pagination">
-        SELECT count(boardId) AS cnt FROM tbl_board
+    <select id="boardCount" parameterType="com.example.freeboard.domain.Pagination" resultType="int">
+        SELECT count(boardId) AS cnt
+        FROM tbl_board
+        where 1=1
+        <include refid="search"/>
     </select>
 
-    <select id="getList" resultType="com.example.freeboard.domain.Board">
+    <select id="getList" parameterType="com.example.freeboard.domain.Pagination" resultType="com.example.freeboard.domain.Board">
         SELECT
             *
-        FROM tbl_board  order by boardid limit (#{curPage}-1)*#{pageSize},#{pageSize} //  게시글 리스트 반환
+        FROM tbl_board
+        where 1=1
+        <include refid="search"/>
+        order by boardid limit #{paging.limitStart},#{recordSize} //  게시글 리스트 반환
     </select>
 
     <select id="getBoard" parameterType="Long" resultType="com.example.freeboard.domain.Board">
@@ -44,4 +50,24 @@
         SET read = read + 1
         WHERE boardId=#{boardId};
     </update>
+
+
+    <sql id="search">
+        <!-- 검색 키워드가 있을 때 -->
+        <if test="keyword != null and keyword != ''">
+            <choose>
+
+
+                        <when test="'title'.equals( searchType )">
+                            AND title LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="'content'.equals( searchType )">
+                            AND content LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+
+
+
+            </choose>
+        </if>
+    </sql>
 </mapper>

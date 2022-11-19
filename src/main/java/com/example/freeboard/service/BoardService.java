@@ -2,11 +2,14 @@ package com.example.freeboard.service;
 
 import com.example.freeboard.domain.Board;
 import com.example.freeboard.domain.Pagination;
+import com.example.freeboard.domain.Paging;
+import com.example.freeboard.domain.PagingResponse;
 import com.example.freeboard.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service // 서비스 역할을 하는 것임을 명시
@@ -15,12 +18,23 @@ import java.util.List;
 public class BoardService {
     private final BoardMapper boardMapper;
 
-    public List<Pagination> boardCount() {
-        return boardMapper.boardCount(); // 게시글 수 반환
+    public int boardCount(Pagination pagination) {
+        return boardMapper.boardCount(pagination); // 게시글 수 반환
     }
 
-    public List<Board> boardList(Pagination pagination) {
-        return boardMapper.getList(pagination); // 게시글 리스트 반환
+    public PagingResponse<Board> boardList(final Pagination pagination) {
+
+        int count = boardMapper.boardCount(pagination);
+        if(count<1){
+            return new PagingResponse<>(Collections.emptyList(),null);
+        }
+
+        Paging paging = new Paging(count, pagination);
+        pagination.setPaging(paging);
+
+        List<Board> list = boardMapper.getList(pagination);
+
+        return new PagingResponse<>(list, paging); // 게시글 리스트 반환
     }
 
     public Board getBoard(Long boardId) {
@@ -51,6 +65,6 @@ public class BoardService {
         boardMapper.viewCount(boardId);
     }
 
-    @Transactional
-    public void changePage(Long curPage) { boardMapper.changePage(curPage);}
+//    @Transactional
+//    public void changePage(Long curPage) { boardMapper.changePage(curPage);}
 }

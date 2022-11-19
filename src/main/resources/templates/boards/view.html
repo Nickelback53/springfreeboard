@@ -41,10 +41,15 @@
       </div>
 
       <div class="btn_area2">
+        <button class="btn_blue" >
+        <a href="javascript: void(0);" onclick="goListPage();" style="color: white">
+          뒤로가기</a>
+
+        </button>
         <form  th:action="@{main}" method="get">
           <button class="btn_blue" type="submit">목록</button>
         </form>
-        <form  th:action="@{update}" method="get">
+        <form  th:action="@{update}" method="get" onclick="goWritePage();">
           <input type="hidden" name="boardId" th:value="${halo.boardId}">
           <button class="btn_blue" type="submit">수정</button>
         </form>
@@ -59,5 +64,20 @@
   </section>
   <!-- CONTAINER @ -->
 </div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  // 게시글 리스트 페이지로 이동
+  function goListPage() {
+    const queryString = new URLSearchParams(location.search);
+    queryString.delete('id');
+    location.href = '/board/main' + '?' + queryString.toString();
+  }
+
+  function goWritePage() {
+    location.href = '/board/update' + location.search;
+  }
+
+  /*]]>*/
+</script>
 </body>
 </html>
